@@ -9,8 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { Sale, SalesFilters } from "@/lib/types";
-import { ArrowDownUp, ArrowUpDown } from "lucide-react";
-import { Button } from "../ui/button";
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
 interface SalesTableProps {
   data: Sale[];
@@ -19,9 +18,20 @@ interface SalesTableProps {
 }
 
 export default function SalesTable({ data, filters, onSort }: SalesTableProps) {
-  const getSortIcon = (column: "date" | "price") => {
-    if (filters.sortBy !== column) return <ArrowUpDown className="h-4 w-4" />;
-    return filters.sortOrder === "asc" ? "↑" : "↓";
+  const renderSortIcon = (column: "date" | "price") => {
+    if (filters.sortBy !== column || !filters.sortOrder) {
+      return <ArrowUpDown className="h-4 w-4" />;
+    }
+
+    if (filters.sortOrder === "asc") {
+      return <ArrowUp className="h-4 w-4" />;
+    }
+
+    if (filters.sortOrder === "desc") {
+      return <ArrowDown className="h-4 w-4" />;
+    }
+
+    return <ArrowUpDown className="h-4 w-4" />;
   };
 
   return (
@@ -29,33 +39,33 @@ export default function SalesTable({ data, filters, onSort }: SalesTableProps) {
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="hover:bg-transparent">
               <TableHead>Customer Email</TableHead>
               <TableHead>Phone Number</TableHead>
               <TableHead>
                 <button
                   onClick={() => onSort("date")}
-                  className="flex items-center gap-2 hover:bg-slate-100"
+                  className="flex items-center gap-2"
                 >
-                  <span>Date</span> {getSortIcon("date")}
+                  <span>Date</span> {renderSortIcon("date")}
                 </button>
               </TableHead>
               <TableHead className="text-right">
                 <button
                   onClick={() => onSort("price")}
-                  className="flex items-center justify-end gap-2 text-right hover:bg-slate-100"
+                  className="flex items-center justify-end gap-2 text-right"
                 >
-                  <span>Price</span> {getSortIcon("price")}
+                  <span>Price</span> {renderSortIcon("price")}
                 </button>
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data?.length === 0 ? (
-              <TableRow>
+              <TableRow className="hover:bg-transparent">
                 <TableCell
                   colSpan={4}
-                  className="py-8 text-center text-slate-500"
+                  className="py-8 text-center text-neutral-400"
                 >
                   No sales data found
                 </TableCell>
@@ -65,7 +75,7 @@ export default function SalesTable({ data, filters, onSort }: SalesTableProps) {
                 <TableRow key={sale._id}>
                   <TableCell>{sale.customerEmail}</TableCell>
                   <TableCell>{sale.customerPhone}</TableCell>
-                  <TableCell>{new Date(sale.date).toLocaleString()}</TableCell>
+                  <TableCell>{sale.date.split("T")[0]}</TableCell>
                   <TableCell className="text-right font-medium">
                     ${sale.price.toFixed(2)}
                   </TableCell>

@@ -24,13 +24,13 @@ export interface SalesResponse {
 }
 
 export interface SalesFilters {
-  startDate: string;
-  endDate: string;
+  startDate?: string;
+  endDate?: string;
   priceMin?: string;
   email?: string;
   phone?: string;
-  sortBy: "date" | "price";
-  sortOrder: "asc" | "desc";
+  sortBy?: "date" | "price" | "";
+  sortOrder?: "asc" | "desc" | "";
   limit?: number;
   before?: string;
   after?: string;
