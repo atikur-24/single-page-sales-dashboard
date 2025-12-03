@@ -7,8 +7,12 @@ export const getAuthToken = async (): Promise<string> => {
   const response = await axiosInstance.post("/getAuthorize", {
     tokenType: "frontEndTest",
   });
+
   const token = response.data.token;
-  Cookies.set(AUTH_TOKEN_KEY, token, { expires: 1 / 12 }); // 2 hours
+  const expireInSeconds = response.data.expire ?? 7200;
+  const expireInDays = expireInSeconds / 86400;
+
+  Cookies.set(AUTH_TOKEN_KEY, token, { expires: expireInDays });
   return token;
 };
 
@@ -16,13 +20,12 @@ export const getSalesData = async (
   filters: SalesFilters,
 ): Promise<SalesResponse> => {
   const params: Record<string, string> = {
-    startDate: filters.startDate,
-    endDate: filters.endDate,
-    sortBy: filters.sortBy,
-    sortOrder: filters.sortOrder,
+    startDate: filters.startDate as any,
+    endDate: filters.endDate as any,
+    sortBy: filters.sortBy as any,
+    sortOrder: filters.sortOrder as any,
     limit: String(filters.limit ?? 50),
 
-    // REQUIRED params (must exist even if empty)
     priceMin: filters.priceMin ?? "",
     email: filters.email ?? "",
     phone: filters.phone ?? "",
