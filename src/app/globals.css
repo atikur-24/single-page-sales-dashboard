@@ -4,10 +4,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-primary: var(--font-inter);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -37,6 +37,15 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  /* THEME COLOR  */
+  --color-theme-gray: var(--theme-gray);
+  --color-theme-dark-purple: var(--theme-dark-purple);
+  --color-theme-dark-purple-2: var(--theme-dark-purple-2);
+  --color-theme-dark-purple-3: var(--theme-dark-purple-3);
+  --color-theme-dark-blue: var(--theme-dark-blue);
+  --color-theme-dark-blue-2: var(--theme-dark-blue-2);
+  --color-theme-dark-blue-3: var(--theme-dark-blue-3);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -45,14 +54,14 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --background: oklch(18.472% 0.00624 300.859); /* #131215 */
+  --foreground: oklch(1 0 0);
+  --card: oklch(18.472% 0.00624 300.859);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(18.472% 0.00624 300.859);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(58.159% 0.2253 291.384); /* #8253F2 */
+  --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
@@ -76,6 +85,14 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  /* THEME COLOR  */
+  --theme-gray: #919193;
+  --theme-dark-purple: #131215;
+  --theme-dark-purple-2: #1c1225;
+  --theme-dark-purple-3: #2c2832;
+  --theme-dark-blue: #232428;
+  --theme-dark-blue-2: #35363b;
+  --theme-dark-blue-3: #1c1c1e;
 }
 
 .dark {
@@ -113,10 +130,76 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  html {
+    @apply scroll-smooth;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background font-primary text-foreground;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img {
+    pointer-events: none;
+  }
+
+  /* Remove number input arrows (Chrome, Safari, Edge, Opera) */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Remove number input arrows (Firefox) */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer utilities {
+  /* table scrollbar design customize */
+  [data-slot="table-container"]::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  [data-slot="table-container"]::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  [data-slot="table-container"]::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  [data-slot="table-container"]::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  [data-slot="table-container"]::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  [data-slot="table-container"] {
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+  }
+
+  /* card styles */
+  .cst-gradient-card {
+    border-radius: 22px;
+
+    --bg: var(--color-theme-dark-blue);
+    --grad: linear-gradient(360deg, rgba(0, 0, 0, 0) 0%, #34333a 100%);
+
+    border: 1px solid transparent;
+    background-image: linear-gradient(var(--bg), var(--bg)), var(--grad);
+    background-origin: padding-box, border-box;
+    background-clip: padding-box, border-box;
+
+    box-shadow: inset 0 5px 10px 0 rgba(168, 130, 207, 0.1);
   }
 }
