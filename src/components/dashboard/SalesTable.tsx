@@ -53,7 +53,7 @@ export default function SalesTable({ data, filters, onSort }: SalesTableProps) {
               <TableHead className="text-right">
                 <button
                   onClick={() => onSort("price")}
-                  className="flex items-center justify-end gap-2 text-right"
+                  className="flex w-full items-center justify-end gap-2 text-right"
                 >
                   <span>Price</span> {renderSortIcon("price")}
                 </button>
