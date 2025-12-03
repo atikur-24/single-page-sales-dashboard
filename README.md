@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sales Dashboard
 
-## Getting Started
+A modern **Sales Dashboard** built with **Next.js**, **TailwindCSS**, and **ShadCN UI**.  
+This dashboard allows you to monitor sales, filter data, sort by columns, and view total sales in a **dark-themed, user-friendly interface**.
 
-First, run the development server:
+---
+
+## **Live Demo**
+
+🚀 **[View Live Dashboard](https://sales-dashboard-alpha-livid.vercel.app/)**
+
+---
+
+## **Features**
+
+- **Dark Mode Dashboard** – Smooth dark theme with modern UI components.
+- **Filter Panel** – Filter sales by date range, email, phone, and minimum price.
+- **Sortable Table** – Click on column headers to sort by date or price (1st click ascending order, 2nd click descending order adn 3rd click reset to default).
+- **Pagination** – Navigate through sales with next/previous buttons.
+- **Interactive Sales Chart** – Line chart for total sales over time using **Recharts**.
+- **Custom Date Picker** – Friendly month/year selection with dark theme and clear button.
+- **Token Authentication** – Frontend token management with automatic expiration.
+- **Instant Data Loading with Caching** – Returning to previous filters or pages loads instantly without refetching.
+- **Responsive Design** – Fully responsive and mobile-friendly.
+
+---
+
+## **Tech Stack**
+
+- **Frontend:** Next.js 16 (App Router), React 19
+- **Styling:** TailwindCSS, ShadCN UI
+- **Charts:** Recharts
+- **State Management:** React Hooks + TanStack Query (React Query)
+- **HTTP Requests:** Axios with token-based authentication
+
+---
+
+## **Folder Structure**
+
+```
+/app              # Next.js pages & dashboard components
+/components       # Reusable components (FilterPanel, SalesTable, CustomDateInput, etc.)
+/hooks            # Custom React hooks (useSalesData)
+/lib              # Types, constants, and utilities (Axios config, token handling)
+```
+
+---
+
+## **Getting Started**
+
+### **Clone the Repository**
+
+```bash
+git clone https://github.com/atikur-24/single-page-sales-dashboard.git
+cd single-page-sales-dashboard
+```
+
+### **Install Dependencies**
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### **Run the Development Server**
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **Build for Production**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm run start
+# or
+yarn build
+yarn start
+```
